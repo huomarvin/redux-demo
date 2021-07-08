@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="increment" type="button">+</button>
+    <span id="count">0</span>
+    <button id="decrement" type="button">-</button>
+    <script src="https://cdn.bootcdn.net/ajax/libs/redux/4.1.0/redux.js"></script>
+    <script>
+        function reducer(state = {count: 0}, action) {
+            switch (action.type) {
+                case  'increment': 
+                    return {count: state.count + 1}
+                case 'decrement':
+                    return {count:state.count - 1};
+            }
+        }
+
+        const store = Redux.createStore(reducer);
+        
+        document.getElementById('increment').addEventListener('click', function(e) {
+            store.dispatch({type: 'increment'});
+        })
+        document.getElementById('decrement').addEventListener('click', function(e) {
+            store.dispatch({type: 'decrement'});
+        })
+
+        store.subscribe(() => {
+           document.getElementById('count').innerText = store.getState().count
+        })
+
+    </script>
+</body>
+</html>
